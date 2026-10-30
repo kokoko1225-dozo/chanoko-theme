@@ -1,36 +1,23 @@
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
+    "lineup": {
+      "type": "cnk-lineup",
       "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false,
-        "color_scheme": "scheme-1"
+        "layout": "grid",
+        "heading": "ラインナップ",
+        "text": "知っている味にたとえると、こんな感じです。迷ったら、お試しセットから。"
       }
     },
-    "product-grid": {
-      "type": "main-collection-product-grid",
+    "signup": {
+      "type": "cnk-signup",
       "settings": {
-        "products_per_page": 16,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "enable_filtering": true,
-        "filter_type": "horizontal",
-        "enable_sorting": true,
-        "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "heading": "販売開始を、いち早く。",
+        "text": "ただいま予約・入荷のお知らせを受付中です。販売開始の際に、メールでお知らせします。"
       }
     }
   },
   "order": [
-    "banner",
-    "product-grid"
+    "lineup",
+    "signup"
   ]
 }

@@ -1,0 +1,19 @@
+{%- comment -%}茶の子:入荷のお知らせ。PoCの出口。強さ2。{%- endcomment -%}
+<section class="cnk-section cnk-signup cnk-bg-paper">
+  <div class="page-width cnk-narrow">
+    <h2 class="cnk-h2">{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}<p class="cnk-lead">{{ section.settings.text }}</p>{%- endif -%}
+    {% render 'cnk-notify', key: 'site', id: 'cnk-notify-site', button: '登録する' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "茶の子:入荷のお知らせ",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "見出し", "default": "販売開始を、いち早く。" },
+    { "type": "textarea", "id": "text", "label": "説明", "default": "ただいま予約・入荷のお知らせを受付中です。販売開始の際に、メールでお知らせします。" }
+  ],
+  "presets": [{ "name": "茶の子:入荷のお知らせ" }]
+}
+{% endschema %}

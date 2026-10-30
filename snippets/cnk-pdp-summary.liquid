@@ -1,0 +1,16 @@
+{%- comment -%}
+  商品ページ上部:素材の色、バッジ、1杯あたり価格。main-product の custom_liquid ブロックから呼ぶ。
+{%- endcomment -%}
+{%- capture d -%}{% render 'cnk-data', handle: product.handle %}{%- endcapture -%}
+{%- assign d = d | split: '|' -%}
+<style>
+  .product__media-wrapper .product__media-list,
+  .product__media-wrapper .product-media-container { --cnk-c: {{ d[0] }}; }
+  .product__info-wrapper { --cnk-c: {{ d[0] }}; --cnk-on: {{ d[1] }}; }
+</style>
+<div class="cnk-pdp-badges">
+  {%- if d[4] == 'aroma' -%}<span class="cnk-pill cnk-pill--color">香りを足す</span>{%- endif -%}
+  {%- if d[3] != blank -%}<span class="cnk-pill">{{ d[3] }}</span>{%- endif -%}
+  {%- if d[7] != blank and d[4] != 'set' -%}<span class="cnk-pill">近いもの:{{ d[7] }}</span>{%- endif -%}
+</div>
+{% render 'cnk-per-cup', product: product, mode: 'list' %}

@@ -1,75 +1,279 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero": {
+      "type": "cnk-hero",
+      "settings": {
+        "fallback_product": "trial-set",
+        "heading": "いつもの一杯を、日本の植物に。",
+        "text": "抹茶から、ごぼう、紫芋、バタフライピーまで。振るだけでできるパウダードリンク。",
+        "button_label": "まずは6種を試す",
+        "button_link": "/products/trial-set",
+        "trust": "ノンカフェイン7種・日本の素材を中心に・10秒で一杯"
+      }
+    },
+    "swap": {
+      "type": "cnk-swap",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "s1": {
+          "type": "swap",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "from": "コーヒーの2杯目を",
+            "to": "抹茶に",
+            "product": "matcha"
           }
         },
-        "button": {
-          "type": "buttons",
+        "s2": {
+          "type": "swap",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "from": "甘いラテを",
+            "to": "紫芋ラテに",
+            "product": "ube"
+          }
+        },
+        "s3": {
+          "type": "swap",
+          "settings": {
+            "from": "夜の一杯を",
+            "to": "バタフライピーのソーダに",
+            "product": "butterfly-pea"
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "s1",
+        "s2",
+        "s3"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "heading": "その一杯を、置き換える。",
+        "price_note": "カフェのラテは1杯約500円。茶の子なら、1杯約107円から。"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "lineup": {
+      "type": "cnk-lineup",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "collection": "ラインナップ",
+        "layout": "rail",
+        "heading": "10の色、10の一杯。",
+        "text": "知っている味にたとえると、こんな感じです。"
+      }
+    },
+    "howto": {
+      "type": "cnk-howto",
+      "blocks": {
+        "a": {
+          "type": "step",
+          "settings": {
+            "title": "入れる",
+            "text": "シェイカーにスティック1本"
+          }
+        },
+        "b": {
+          "type": "step",
+          "settings": {
+            "title": "注ぐ",
+            "text": "冷たい水かミルク"
+          }
+        },
+        "c": {
+          "type": "step",
+          "settings": {
+            "title": "振る",
+            "text": "ふたをして10秒"
+          }
+        }
+      },
+      "block_order": [
+        "a",
+        "b",
+        "c"
+      ],
+      "settings": {
+        "heading": "10秒で、一杯。",
+        "text": "",
+        "note": "温かく飲む時は、カップで少量のお湯に溶いてから注ぎ足してください。熱いお湯をシェイカーで振るのは避けてください。"
+      }
+    },
+    "moments": {
+      "type": "cnk-moments",
+      "blocks": {
+        "m1": {
+          "type": "moment",
+          "settings": {
+            "title": "朝",
+            "product_1": "matcha",
+            "product_2": "hojicha"
+          }
+        },
+        "m2": {
+          "type": "moment",
+          "settings": {
+            "title": "午後",
+            "product_1": "roasted-burdock",
+            "product_2": "matcha"
+          }
+        },
+        "m3": {
+          "type": "moment",
+          "settings": {
+            "title": "甘いものがほしい時",
+            "product_1": "ube",
+            "product_2": "hojicha"
+          }
+        },
+        "m4": {
+          "type": "moment",
+          "settings": {
+            "title": "運動のあと",
+            "product_1": "roselle",
+            "product_2": "matcha"
+          }
+        },
+        "m5": {
+          "type": "moment",
+          "settings": {
+            "title": "夜",
+            "product_1": "decaf-matcha",
+            "product_2": "yomogi"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5"
+      ],
+      "settings": {
+        "heading": "飲みたい場面から、選ぶ。",
+        "text": "",
+        "link_label": "10種を比べる",
+        "link": "/pages/guide"
+      }
+    },
+    "trial": {
+      "type": "cnk-trial",
+      "settings": {
+        "product": "trial-set",
+        "heading": "迷ったら、まずは6種。",
+        "text": "カフェインのあるもの・ないもの、香ばしいもの・甘いもの・色が変わるもの。1本ずつ飲み比べて、自分の一杯を見つけてください。",
+        "included": [
+          "matcha",
+          "hojicha",
+          "roasted-burdock",
+          "ube",
+          "yomogi",
+          "butterfly-pea"
+        ],
+        "price_note": "予定価格・送料込み(予定)",
+        "button_label": "お試しセットを見る"
+      }
+    },
+    "promise": {
+      "type": "cnk-promise",
+      "blocks": {
+        "p1": {
+          "type": "promise",
+          "settings": {
+            "title": "植物を、丸ごと",
+            "text": "葉や根や花を、そのまま粉にしています。"
+          }
+        },
+        "p2": {
+          "type": "promise",
+          "settings": {
+            "title": "どこで誰が、を書く",
+            "text": "産地と作り手を、商品ごとにすべて明かします。"
+          }
+        },
+        "p3": {
+          "type": "promise",
+          "settings": {
+            "title": "日本の素材を中心に",
+            "text": "お茶の産地、静岡から。国内の素材を中心に選んでいます。"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "heading": "茶の子の約束",
+        "link_label": "茶の子について",
+        "link": "/pages/about"
+      }
+    },
+    "voices": {
+      "type": "cnk-voices",
+      "settings": {
+        "heading": "飲んだ人の声"
+      }
+    },
+    "faq": {
+      "type": "cnk-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "水でも溶けますか？",
+            "answer": "<p>細かい粉末なので、水でも振れば混ざります。素材によっては底に少し沈むので、飲む前にひと振りしてください。</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "カフェインが入っているのはどれですか？",
+            "answer": "<p>抹茶とほうじ茶です。カフェインレス抹茶はカフェインを取り除いていますが、ごく微量残る場合があります。そのほかはノンカフェインです。</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "送料はいくらですか？",
+            "answer": "<p>全国一律450円(税込)です。</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "いつ届きますか？",
+            "answer": "<p>現在は予約・入荷のお知らせを受付中です。販売開始後は、ご注文から3〜5営業日以内に発送します。</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {
+        "heading": "よくある質問",
+        "link_label": "質問をすべて見る",
+        "link": "/pages/faq"
+      }
+    },
+    "signup": {
+      "type": "cnk-signup",
+      "settings": {
+        "heading": "販売開始を、いち早く。",
+        "text": "ただいま予約・入荷のお知らせを受付中です。販売開始の際に、メールでお知らせします。"
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "hero",
+    "swap",
+    "lineup",
+    "howto",
+    "moments",
+    "trial",
+    "promise",
+    "voices",
+    "faq",
+    "signup"
   ]
 }

@@ -1,0 +1,62 @@
+{%- comment -%}茶の子:場面で選ぶ。強さ3。{%- endcomment -%}
+<section class="cnk-section cnk-moments">
+  <div class="page-width">
+    <div class="cnk-section__head">
+      <h2 class="cnk-h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="cnk-lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <ul class="cnk-moments__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign p1 = block.settings.product_1 -%}
+        {%- assign p2 = block.settings.product_2 -%}
+        <li class="cnk-moment" {{ block.shopify_attributes }}>
+          <div class="cnk-moment__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 20vw, 60vw', widths: '400, 600, 800' }}
+            {%- elsif p1.featured_media -%}
+              {{ p1.featured_media | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 20vw, 60vw', widths: '400, 600, 800', alt: '' }}
+            {%- endif -%}
+          </div>
+          <p class="cnk-moment__title">{{ block.settings.title }}</p>
+          <p class="cnk-moment__links">
+            {%- for p in (1..2) -%}
+              {%- if forloop.index == 1 -%}{%- assign pp = p1 -%}{%- else -%}{%- assign pp = p2 -%}{%- endif -%}
+              {%- if pp -%}
+                {%- capture d -%}{% render 'cnk-data', handle: pp.handle %}{%- endcapture -%}
+                {%- assign d = d | split: '|' -%}
+                <a href="{{ pp.url }}" style="--cnk-c: {{ d[0] }};"><span class="cnk-dot" aria-hidden="true"></span>{{ pp.title }}</a>
+              {%- endif -%}
+            {%- endfor -%}
+          </p>
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if section.settings.link_label != blank -%}<p class="cnk-more"><a href="{{ section.settings.link }}">{{ section.settings.link_label }}</a></p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "茶の子:場面で選ぶ",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "見出し", "default": "飲みたい場面から、選ぶ。" },
+    { "type": "textarea", "id": "text", "label": "説明" },
+    { "type": "text", "id": "link_label", "label": "リンクの文言", "default": "10種を比べる" },
+    { "type": "url", "id": "link", "label": "リンク" }
+  ],
+  "blocks": [
+    {
+      "type": "moment",
+      "name": "場面",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "title", "label": "場面", "default": "朝" },
+        { "type": "image_picker", "id": "image", "label": "写真(空なら1つ目の商品の写真)" },
+        { "type": "product", "id": "product_1", "label": "おすすめ1" },
+        { "type": "product", "id": "product_2", "label": "おすすめ2" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "茶の子:場面で選ぶ" }]
+}
+{% endschema %}

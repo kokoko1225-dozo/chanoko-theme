@@ -1,0 +1,120 @@
+{%- comment -%}
+  茶の子:商品ページの下半分(読みたい人だけが読む)。
+  味の目安 → 作り方 → これと混ぜると → 素材と産地・商品ごとの質問([detail] 以降)→ 共通の質問 → お試しセット
+{%- endcomment -%}
+{%- capture d -%}{% render 'cnk-data', handle: product.handle %}{%- endcapture -%}
+{%- assign d = d | split: '|' -%}
+{%- assign scores = d[5] | split: ',' -%}
+{%- assign labels = '苦み,甘み,香ばしさ,酸味,香り' | split: ',' -%}
+{%- assign parts = product.description | split: '<p>[detail]</p>' -%}
+<div class="cnk-pd" style="--cnk-c: {{ d[0] }}; --cnk-on: {{ d[1] }};">
+  {%- if d[4] != 'set' and section.settings.show_taste -%}
+    <section class="cnk-section cnk-pd__taste">
+      <div class="page-width cnk-narrow">
+        <h2 class="cnk-h2">味の目安</h2>
+        <dl class="cnk-taste">
+          {%- for label in labels -%}
+            {%- assign s = scores[forloop.index0] | plus: 0 -%}
+            <div class="cnk-taste__row">
+              <dt>{{ label }}</dt>
+              <dd aria-label="{{ label }} {{ s }}/3">
+                {%- for i in (1..3) -%}<span class="cnk-taste__dot{% if i <= s %} is-on{% endif %}"></span>{%- endfor -%}
+              </dd>
+            </div>
+          {%- endfor -%}
+        </dl>
+        {%- if d[7] != blank -%}<p class="cnk-lead cnk-lead--small">近いもの:{{ d[7] }}</p>{%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  <section class="cnk-section cnk-bg-paper">
+    <div class="page-width">
+      <div class="cnk-section__head"><h2 class="cnk-h2">10秒で、一杯。</h2></div>
+      <ol class="cnk-steps" role="list">
+        <li class="cnk-step"><span class="cnk-step__num">01</span><p class="cnk-step__title">入れる</p><p class="cnk-step__text">シェイカーにスティック1本</p></li>
+        <li class="cnk-step"><span class="cnk-step__num">02</span><p class="cnk-step__title">注ぐ</p><p class="cnk-step__text">冷たい水かミルク</p></li>
+        <li class="cnk-step"><span class="cnk-step__num">03</span><p class="cnk-step__title">振る</p><p class="cnk-step__text">ふたをして10秒</p></li>
+      </ol>
+      <p class="cnk-note">温かく飲む時は、カップで少量のお湯に溶いてから注ぎ足してください。熱いお湯をシェイカーで振るのは避けてください。</p>
+    </div>
+  </section>
+
+  {%- assign pairs = d[6] | split: ',' -%}
+  {%- if pairs.size > 0 -%}
+    <section class="cnk-section">
+      <div class="page-width">
+        <div class="cnk-section__head">
+          <h2 class="cnk-h2">これと混ぜると</h2>
+          <p class="cnk-lead">少し加えるだけで、香りが重なります。</p>
+        </div>
+        <div class="cnk-lineup__grid cnk-lineup__grid--two">
+          {%- for h in pairs -%}
+            {%- assign pp = all_products[h] -%}
+            {%- if pp.id -%}{% render 'cnk-card', product: pp %}{%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if parts.size > 1 -%}
+    <section class="cnk-section cnk-pd__detail">
+      <div class="page-width cnk-narrow rte">{{ parts[1] }}</div>
+    </section>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <section class="cnk-section cnk-faq">
+      <div class="page-width cnk-narrow">
+        <h2 class="cnk-h2">よくある質問</h2>
+        <div class="cnk-faq__list">
+          {%- for block in section.blocks -%}
+            <details class="cnk-faq__item" {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.question }}</summary>
+              <div class="cnk-faq__answer">{{ block.settings.answer }}</div>
+            </details>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- assign trial = section.settings.trial -%}
+  {%- if trial and trial.handle != product.handle -%}
+    <section class="cnk-section cnk-pd__trial">
+      <div class="page-width cnk-narrow cnk-center">
+        <h2 class="cnk-h2">迷ったら、まずは6種。</h2>
+        {%- assign in_trial = section.settings.trial_handles | split: ',' -%}
+        {%- if in_trial contains product.handle -%}
+          <p class="cnk-lead">{{ product.title }}も入った、6種の飲み比べセットがあります。</p>
+        {%- else -%}
+          <p class="cnk-lead">定番の6種を1本ずつ、飲み比べられます。</p>
+        {%- endif -%}
+        <a class="cnk-btn" href="{{ trial.url }}">お試しセットを見る</a>
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "茶の子:商品の詳しい情報",
+  "settings": [
+    { "type": "checkbox", "id": "show_taste", "label": "味の目安を表示する(値は試飲後に snippets/cnk-data で確定)", "default": true },
+    { "type": "product", "id": "trial", "label": "お試しセットの商品" },
+    { "type": "text", "id": "trial_handles", "label": "お試しセットに入っている商品のハンドル(カンマ区切り)", "default": "matcha,hojicha,roasted-burdock,ube,yomogi,butterfly-pea" }
+  ],
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "共通の質問",
+      "settings": [
+        { "type": "text", "id": "question", "label": "質問" },
+        { "type": "richtext", "id": "answer", "label": "答え" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "茶の子:商品の詳しい情報" }]
+}
+{% endschema %}

@@ -1,0 +1,33 @@
+{%- comment -%}
+  入荷のお知らせ登録。顧客に「waitlist-<key>」のタグが付き、素材ごとの登録数を数えられる。
+  key: タグに使う名前(商品なら handle) / heading / text / id: フォームのid
+{%- endcomment -%}
+{%- assign form_id = id | default: 'cnk-notify' -%}
+<div class="cnk-notify">
+  {%- form 'customer', id: form_id, class: 'cnk-notify__form' -%}
+    <input type="hidden" name="contact[tags]" value="newsletter,waitlist,waitlist-{{ key | default: 'site' }}">
+    {%- if heading != blank -%}<p class="cnk-notify__heading">{{ heading }}</p>{%- endif -%}
+    {%- if text != blank -%}<p class="cnk-notify__text">{{ text }}</p>{%- endif -%}
+    {%- if form.posted_successfully? -%}
+      <p class="cnk-notify__done" role="status">ご登録ありがとうございます。販売開始の際にメールでお知らせします。</p>
+    {%- else -%}
+      <div class="cnk-notify__row">
+        <label class="visually-hidden" for="{{ form_id }}-email">メールアドレス</label>
+        <input
+          id="{{ form_id }}-email"
+          type="email"
+          name="contact[email]"
+          placeholder="メールアドレス"
+          autocomplete="email"
+          autocorrect="off"
+          autocapitalize="off"
+          required
+        >
+        <button type="submit" class="cnk-btn">{{ button | default: '入荷を知らせる' }}</button>
+      </div>
+      {%- if form.errors -%}
+        <p class="cnk-notify__error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endform -%}
+</div>

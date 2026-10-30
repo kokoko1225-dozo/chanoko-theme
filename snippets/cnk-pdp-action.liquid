@@ -1,0 +1,23 @@
+{%- comment -%}
+  商品ページの行動:予約期間中は入荷のお知らせ登録、そのあと送料・発送・返品の3行。
+  販売を始めたら、テーマエディタで main-product の「購入ボタン」ブロックを表示し、このブロックを外す。
+{%- endcomment -%}
+{%- assign notify_text = product.title | append: 'の販売開始時に、メールでお知らせします。' -%}
+{% render 'cnk-notify',
+  key: product.handle,
+  id: 'cnk-notify-product',
+  heading: '入荷のお知らせを受け取る',
+  text: notify_text,
+  button: '入荷を知らせる'
+%}
+<ul class="cnk-ship" role="list">
+  <li>
+    <span>送料</span
+    >{%- if product.handle == 'trial-set' -%}込み(予定){%- else -%}全国一律450円(税込){%- endif -%}
+  </li>
+  <li><span>発送</span>販売開始後、ご注文から3〜5営業日以内</li>
+  <li>
+    <span>返品</span>食品のため、破損・誤配送の場合のみ(到着後7日以内)。<a href="/policies/legal-notice">詳しく</a>
+  </li>
+</ul>
+<p class="cnk-note">※掲載している画像はイメージです。実際の商品とは色味や形状が異なる場合があります。</p>

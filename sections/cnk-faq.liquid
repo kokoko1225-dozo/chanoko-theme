@@ -1,0 +1,37 @@
+{%- comment -%}茶の子:よくある質問。強さ1。{%- endcomment -%}
+<section class="cnk-section cnk-faq">
+  <div class="page-width cnk-narrow">
+    <h2 class="cnk-h2">{{ section.settings.heading }}</h2>
+    <div class="cnk-faq__list">
+      {%- for block in section.blocks -%}
+        <details class="cnk-faq__item" {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }}</summary>
+          <div class="cnk-faq__answer">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.link_label != blank -%}<p class="cnk-more"><a href="{{ section.settings.link }}">{{ section.settings.link_label }}</a></p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "茶の子:よくある質問",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "見出し", "default": "よくある質問" },
+    { "type": "text", "id": "link_label", "label": "リンクの文言", "default": "質問をすべて見る" },
+    { "type": "url", "id": "link", "label": "リンク" }
+  ],
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "質問",
+      "settings": [
+        { "type": "text", "id": "question", "label": "質問" },
+        { "type": "richtext", "id": "answer", "label": "答え" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "茶の子:よくある質問" }]
+}
+{% endschema %}

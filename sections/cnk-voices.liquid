@@ -1,0 +1,35 @@
+{%- comment -%}茶の子:飲んだ人の声。強さ2。声が1つもない時は何も出さない。{%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+  <section class="cnk-section cnk-voices cnk-bg-paper">
+    <div class="page-width">
+      <h2 class="cnk-h2">{{ section.settings.heading }}</h2>
+      <ul class="cnk-voices__list" role="list">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            <blockquote>{{ block.settings.quote }}</blockquote>
+            <p class="cnk-voices__who">{{ block.settings.name }}</p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "茶の子:飲んだ人の声",
+  "settings": [{ "type": "text", "id": "heading", "label": "見出し", "default": "飲んだ人の声" }],
+  "blocks": [
+    {
+      "type": "voice",
+      "name": "声",
+      "limit": 6,
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "感想(味と使いやすさだけ。効き目の話は載せない)" },
+        { "type": "text", "id": "name", "label": "名前・肩書き" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "茶の子:飲んだ人の声" }]
+}
+{% endschema %}

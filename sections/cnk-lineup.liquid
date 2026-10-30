@@ -1,0 +1,75 @@
+{%- comment -%}
+  茶の子:色のラインナップ。強さ4。
+  トップでは横スクロールの一列、ラインナップのページ(layout: 'grid')では絞り込み付きの格子。
+  並びは コレクションの順番のまま、お試しセット → 飲む → 香りを足す の順に分ける。
+{%- endcomment -%}
+{%- assign c = section.settings.collection | default: collection -%}
+{%- assign is_grid = false -%}
+{%- if section.settings.layout == 'grid' -%}{%- assign is_grid = true -%}{%- endif -%}
+<section class="cnk-section cnk-lineup{% if is_grid %} cnk-lineup--grid{% endif %}">
+  <div class="page-width">
+    <div class="cnk-section__head">
+      <h2 class="cnk-h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="cnk-lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+
+    {%- if is_grid -%}
+      <div class="cnk-filter" role="group" aria-label="カフェインで絞り込む" data-cnk-filter>
+        <button type="button" class="cnk-chip is-active" data-filter="all" aria-pressed="true">すべて</button>
+        <button type="button" class="cnk-chip" data-filter="yes" aria-pressed="false">カフェインあり</button>
+        <button type="button" class="cnk-chip" data-filter="no" aria-pressed="false">ノンカフェイン</button>
+      </div>
+    {%- endif -%}
+
+    {%- if c != blank -%}
+      {%- if is_grid -%}
+        {%- for product in c.products -%}
+          {%- if product.handle == 'trial-set' -%}
+            <div class="cnk-lineup__trial">{% render 'cnk-card', product: product, size: 'wide' %}</div>
+          {%- endif -%}
+        {%- endfor -%}
+        <h3 class="cnk-h3">飲む</h3>
+        <div class="cnk-lineup__grid" data-cnk-items>
+          {%- for product in c.products -%}
+            {%- capture d -%}{% render 'cnk-data', handle: product.handle %}{%- endcapture -%}
+            {%- assign kind = d | split: '|' | slice: 4 | first -%}
+            {%- if kind == 'drink' -%}{% render 'cnk-card', product: product %}{%- endif -%}
+          {%- endfor -%}
+        </div>
+        <h3 class="cnk-h3">香りを足す</h3>
+        <p class="cnk-lead cnk-lead--small">単品ではなく、いつもの一杯にひとつまみ加えて使います。</p>
+        <div class="cnk-lineup__grid" data-cnk-items>
+          {%- for product in c.products -%}
+            {%- capture d -%}{% render 'cnk-data', handle: product.handle %}{%- endcapture -%}
+            {%- assign kind = d | split: '|' | slice: 4 | first -%}
+            {%- if kind == 'aroma' -%}{% render 'cnk-card', product: product %}{%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div class="cnk-lineup__rail" tabindex="0" aria-label="ラインナップ(横にスクロールできます)">
+          {%- for product in c.products -%}
+            {%- unless product.handle == 'trial-set' -%}{% render 'cnk-card', product: product %}{%- endunless -%}
+          {%- endfor -%}
+        </div>
+        <p class="cnk-more"><a href="{{ c.url }}">ラインナップをすべて見る</a></p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{%- if is_grid -%}
+  <script src="{{ 'chanoko.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "茶の子:ラインナップ",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "コレクション(空ならそのページのコレクション)" },
+    { "type": "select", "id": "layout", "label": "並べ方", "options": [ { "value": "rail", "label": "横一列(トップ用)" }, { "value": "grid", "label": "格子と絞り込み(ラインナップのページ用)" } ], "default": "rail" },
+    { "type": "text", "id": "heading", "label": "見出し", "default": "10の色、10の一杯。" },
+    { "type": "textarea", "id": "text", "label": "説明", "default": "知っている味にたとえると、こんな感じです。" }
+  ],
+  "presets": [{ "name": "茶の子:ラインナップ" }]
+}
+{% endschema %}

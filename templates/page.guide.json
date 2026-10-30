@@ -1,0 +1,93 @@
+{
+  "sections": {
+    "moments": {
+      "type": "cnk-moments",
+      "blocks": {
+        "m1": {
+          "type": "moment",
+          "settings": {
+            "title": "朝",
+            "product_1": "matcha",
+            "product_2": "hojicha"
+          }
+        },
+        "m2": {
+          "type": "moment",
+          "settings": {
+            "title": "午後",
+            "product_1": "roasted-burdock",
+            "product_2": "matcha"
+          }
+        },
+        "m3": {
+          "type": "moment",
+          "settings": {
+            "title": "甘いものがほしい時",
+            "product_1": "ube",
+            "product_2": "hojicha"
+          }
+        },
+        "m4": {
+          "type": "moment",
+          "settings": {
+            "title": "運動のあと",
+            "product_1": "roselle",
+            "product_2": "matcha"
+          }
+        },
+        "m5": {
+          "type": "moment",
+          "settings": {
+            "title": "夜",
+            "product_1": "decaf-matcha",
+            "product_2": "yomogi"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5"
+      ],
+      "settings": {
+        "heading": "飲みたい場面から、選ぶ。",
+        "text": "どれから始めるか迷ったら、飲みたい場面から。",
+        "link_label": "",
+        "link": ""
+      }
+    },
+    "compare": {
+      "type": "cnk-compare",
+      "settings": {
+        "collection": "ラインナップ",
+        "heading": "10種を比べる",
+        "text": "ゆずとクロモジは、いつもの一杯にひとつまみ加えて使う「香りを足す」素材です。"
+      }
+    },
+    "trial": {
+      "type": "cnk-trial",
+      "settings": {
+        "product": "trial-set",
+        "heading": "迷ったら、まずは6種。",
+        "text": "1本ずつ飲み比べて、自分の一杯を見つけてください。",
+        "included": [
+          "matcha",
+          "hojicha",
+          "roasted-burdock",
+          "ube",
+          "yomogi",
+          "butterfly-pea"
+        ],
+        "price_note": "予定価格・送料込み(予定)",
+        "button_label": "お試しセットを見る"
+      }
+    }
+  },
+  "order": [
+    "moments",
+    "compare",
+    "trial"
+  ]
+}

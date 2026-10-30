@@ -1,0 +1,55 @@
+{%- comment -%}茶の子:トップ動画。強さ5。{%- endcomment -%}
+<section class="cnk-hero" aria-label="{{ section.settings.heading | escape }}">
+  <div class="cnk-hero__media">
+    {%- if section.settings.video != blank -%}
+      {{
+        section.settings.video
+        | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true,
+          controls: false,
+          preload: 'metadata',
+          image_size: '1600x'
+      }}
+    {%- elsif section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '750, 1100, 1500, 2000, 2400'
+      }}
+    {%- elsif section.settings.fallback_product.featured_media -%}
+      {{
+        section.settings.fallback_product.featured_media
+        | image_url: width: 2400
+        | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '750, 1100, 1500, 2000, 2400'
+      }}
+    {%- endif -%}
+  </div>
+  <div class="cnk-hero__content page-width">
+    <h1 class="cnk-hero__heading">{{ section.settings.heading }}</h1>
+    {%- if section.settings.text != blank -%}<p class="cnk-hero__text">{{ section.settings.text }}</p>{%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a class="cnk-btn cnk-btn--light" href="{{ section.settings.button_link | default: '/products/trial-set' }}">{{ section.settings.button_label }}</a>
+    {%- endif -%}
+    {%- if section.settings.trust != blank -%}<p class="cnk-hero__trust">{{ section.settings.trust }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "茶の子:トップ動画",
+  "settings": [
+    { "type": "video", "id": "video", "label": "動画(無音ループ、8〜12秒)" },
+    { "type": "image_picker", "id": "image", "label": "動画がない時の画像" },
+    { "type": "product", "id": "fallback_product", "label": "画像もない時に使う商品の写真" },
+    { "type": "text", "id": "heading", "label": "見出し", "default": "いつもの一杯を、日本の植物に。" },
+    { "type": "textarea", "id": "text", "label": "説明", "default": "抹茶から、ごぼう、紫芋、バタフライピーまで。振るだけでできるパウダードリンク。" },
+    { "type": "text", "id": "button_label", "label": "ボタン", "default": "まずは6種を試す" },
+    { "type": "url", "id": "button_link", "label": "ボタンのリンク" },
+    { "type": "text", "id": "trust", "label": "小さな一行", "default": "ノンカフェイン7種・日本の素材を中心に・10秒で一杯" }
+  ],
+  "presets": [{ "name": "茶の子:トップ動画" }]
+}
+{% endschema %}

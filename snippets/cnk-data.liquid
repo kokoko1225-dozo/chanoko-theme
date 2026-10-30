@@ -1,0 +1,23 @@
+{%- comment -%}
+  茶の子:素材ごとのデータ。
+  使い方: {%- capture d -%}{% render 'cnk-data', handle: product.handle %}{%- endcapture -%}{%- assign d = d | split: '|' -%}
+  返す値(| 区切り):
+    0 ブランド色 / 1 文字色 / 2 味の一言 / 3 カフェイン表記 / 4 種類(drink / aroma / set)
+    5 味の目安(苦み,甘み,香ばしさ,酸味,香り / 0〜3、試飲で確定させる仮の値)
+    6 相性のいい素材(handle をカンマ区切り) / 7 近いもの
+  文字色は WCAG のコントラスト比 4.5:1 以上になる組み合わせだけを使う。
+{%- endcomment -%}
+{%- case handle -%}
+  {%- when 'matcha' -%}#2F7A35|#FFFFFF|ほどよい苦みと、あとに残る旨み|カフェインあり|drink|2,1,0,0,2|yuzu,decaf-matcha|抹茶ラテ
+  {%- when 'decaf-matcha' -%}#9CCB6B|#14213D|抹茶の香りと、まろやかな旨み|カフェインレス|drink|1,1,0,0,2|yuzu,matcha|夜の抹茶ラテ
+  {%- when 'hojicha' -%}#A0541F|#FFFFFF|香ばしくて、苦みは控えめ|カフェインあり|drink|1,1,3,0,2|kuromoji,yuzu|ほうじ茶ラテ
+  {%- when 'roasted-burdock' -%}#4A2E1F|#FFFFFF|カフェオレのような香ばしさ|ノンカフェイン|drink|2,1,3,0,1|hojicha,kuromoji|カフェオレ
+  {%- when 'ube' -%}#7B4BA8|#FFFFFF|焼き芋のような、やさしい甘み|ノンカフェイン|drink|0,2,1,0,1|hojicha,yuzu|ウベラテ
+  {%- when 'butterfly-pea' -%}#2F5BD3|#FFFFFF|味はほぼなし。青から紫に変わる|ノンカフェイン|drink|0,0,0,0,1|yuzu,roselle|色が変わるソーダ
+  {%- when 'roselle' -%}#C8243F|#FFFFFF|きりっとした、深紅の酸味|ノンカフェイン|drink|0,0,0,3,2|yuzu,butterfly-pea|ハイビスカスティー
+  {%- when 'yomogi' -%}#5C7A2E|#FFFFFF|草餅のような、青い香り|ノンカフェイン|drink|1,0,0,0,3|yuzu,kuromoji|よもぎラテ
+  {%- when 'kuromoji' -%}#75633F|#FFFFFF|森のような、ウッディな香り|ノンカフェイン|aroma|0,0,0,0,3|hojicha,yomogi|香木の香り
+  {%- when 'yuzu' -%}#F2C230|#14213D|爽やかな香りと、皮のほろ苦さ|ノンカフェイン|aroma|1,0,0,1,3|matcha,roselle|ゆず皮
+  {%- when 'trial-set' -%}#14213D|#F7F3EC|まずは6種を飲み比べ|カフェインあり2種・なし4種|set|0,0,0,0,0||飲み比べ
+  {%- else -%}#F7F3EC|#14213D||||0,0,0,0,0||
+{%- endcase -%}

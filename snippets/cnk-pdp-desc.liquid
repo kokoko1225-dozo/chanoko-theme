@@ -1,0 +1,5 @@
+{%- comment -%}
+  商品説明のうち「[detail]」より前だけを出す。後ろは cnk-product-details セクションで出す。
+{%- endcomment -%}
+{%- assign parts = product.description | split: '<p>[detail]</p>' -%}
+<div class="product__description rte cnk-pdp-desc">{{ parts[0] }}</div>

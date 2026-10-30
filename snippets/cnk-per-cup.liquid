@@ -1,0 +1,25 @@
+{%- comment -%}
+  1杯あたりの価格。
+  mode: 'min' = 最安の1杯あたり価格だけ(例:¥107)/ 'list' = 形式ごとの一覧
+  杯数はバリエーション名から読む(「10本」→10、「30杯」→30、「6種」→6)。
+{%- endcomment -%}
+{%- assign cnk_min = 0 -%}
+{%- capture cnk_list -%}
+  {%- for v in product.variants -%}
+    {%- assign n = 0 -%}
+    {%- if v.title contains '10本' -%}{%- assign n = 10 -%}
+    {%- elsif v.title contains '30杯' -%}{%- assign n = 30 -%}
+    {%- elsif product.handle == 'trial-set' -%}{%- assign n = 6 -%}
+    {%- endif -%}
+    {%- if n > 0 -%}
+      {%- assign per = v.price | divided_by: n -%}
+      {%- if cnk_min == 0 or per < cnk_min -%}{%- assign cnk_min = per -%}{%- endif -%}
+      <li><span>{{ v.title | replace: '入り', '' | replace: '分', '' | replace: 'Default Title', '6本' }}</span><span>1杯 約{{ per | money_without_trailing_zeros }}</span></li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if mode == 'min' -%}
+  {%- if cnk_min > 0 -%}1杯 約{{ cnk_min | money_without_trailing_zeros }}から{%- endif -%}
+{%- else -%}
+  {%- if cnk_min > 0 -%}<ul class="cnk-percup" role="list">{{ cnk_list }}</ul>{%- endif -%}
+{%- endif -%}

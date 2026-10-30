@@ -1,0 +1,46 @@
+{%- comment -%}茶の子:お試しセット。強さ4。濃紺の帯に1つの行動だけ。{%- endcomment -%}
+{%- assign p = section.settings.product -%}
+<section class="cnk-trial cnk-bg-ink">
+  <div class="page-width cnk-trial__inner">
+    <div class="cnk-trial__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '600, 900, 1200, 1400' }}
+      {%- elsif p.featured_media -%}
+        {{ p.featured_media | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '600, 900, 1200, 1400', alt: p.title }}
+      {%- endif -%}
+    </div>
+    <div class="cnk-trial__content">
+      <h2 class="cnk-h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="cnk-lead">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.included != blank -%}
+        <ul class="cnk-trial__items" role="list">
+          {%- for item in section.settings.included -%}
+            {%- capture d -%}{% render 'cnk-data', handle: item.handle %}{%- endcapture -%}
+            {%- assign d = d | split: '|' -%}
+            <li style="--cnk-c: {{ d[0] }};"><a href="{{ item.url }}"><span class="cnk-dot" aria-hidden="true"></span>{{ item.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if p -%}
+        <p class="cnk-trial__price">{{ p.price | money_without_trailing_zeros }}<span>{{ section.settings.price_note }}</span></p>
+        <a class="cnk-btn cnk-btn--light" href="{{ p.url }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "茶の子:お試しセット",
+  "settings": [
+    { "type": "product", "id": "product", "label": "お試しセットの商品" },
+    { "type": "image_picker", "id": "image", "label": "写真(空なら商品の写真)" },
+    { "type": "text", "id": "heading", "label": "見出し", "default": "迷ったら、まずは6種。" },
+    { "type": "textarea", "id": "text", "label": "説明", "default": "カフェインのあるもの・ないもの、香ばしいもの・甘いもの・色が変わるもの。1本ずつ飲み比べて、自分の一杯を見つけてください。" },
+    { "type": "product_list", "id": "included", "label": "入っているもの", "limit": 6 },
+    { "type": "text", "id": "price_note", "label": "価格の横の注記", "default": "予定価格" },
+    { "type": "text", "id": "button_label", "label": "ボタン", "default": "お試しセットを見る" }
+  ],
+  "presets": [{ "name": "茶の子:お試しセット" }]
+}
+{% endschema %}

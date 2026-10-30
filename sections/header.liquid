@@ -315,6 +315,9 @@
           </div>
         {%- endif -%}
       </a>
+      {%- if section.settings.cnk_cta_label != blank -%}
+        <a href="{{ section.settings.cnk_cta_link | default: '/products/trial-set' }}" class="cnk-btn cnk-header-cta">{{ section.settings.cnk_cta_label }}</a>
+      {%- endif -%}
     </div>
   </header>
 </{{ header_tag }}>
@@ -504,6 +507,17 @@
   "class": "section-header",
   "max_blocks": 3,
   "settings": [
+    {
+      "type": "text",
+      "id": "cnk_cta_label",
+      "label": "茶の子:右上のボタン",
+      "default": "お試しセット"
+    },
+    {
+      "type": "url",
+      "id": "cnk_cta_link",
+      "label": "茶の子:右上のボタンのリンク"
+    },
     {
       "type": "select",
       "id": "logo_position",

@@ -1,0 +1,32 @@
+{%- comment -%}
+  素材の色のカード。product を渡す。size: 'wide' でお試しセット用の横長。
+{%- endcomment -%}
+{%- capture d -%}{% render 'cnk-data', handle: product.handle %}{%- endcapture -%}
+{%- assign d = d | split: '|' -%}
+{%- if d[3] contains 'あり' -%}{%- assign caf = 'yes' -%}{%- else -%}{%- assign caf = 'no' -%}{%- endif -%}
+<a
+  href="{{ product.url }}"
+  class="cnk-card{% if size == 'wide' %} cnk-card--wide{% endif %}"
+  style="--cnk-c: {{ d[0] }}; --cnk-on: {{ d[1] }};"
+  data-caffeine="{{ caf }}"
+  data-kind="{{ d[4] }}"
+>
+  <div class="cnk-card__media">
+    {%- if product.featured_media -%}
+      {{
+        product.featured_media
+        | image_url: width: 900
+        | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 70vw', widths: '360, 540, 720, 900', alt: product.title
+      }}
+    {%- endif -%}
+  </div>
+  <div class="cnk-card__body">
+    {%- if d[4] == 'aroma' -%}<span class="cnk-card__kind">香りを足す</span>{%- endif -%}
+    <h3 class="cnk-card__name">{{ product.title }}</h3>
+    {%- if d[2] != blank -%}<p class="cnk-card__taste">{{ d[2] }}</p>{%- endif -%}
+    <div class="cnk-card__meta">
+      {%- if d[3] != blank -%}<span class="cnk-pill">{{ d[3] }}</span>{%- endif -%}
+      <span class="cnk-card__price">{% render 'cnk-per-cup', product: product, mode: 'min' %}</span>
+    </div>
+  </div>
+</a>
